@@ -27,11 +27,13 @@ export const HomeBoardPage: React.FC = () => {
     void getStudents()
   }, [getStudents])
 
+  //setting the student list as per the useApi response data
   useEffect(() => {
     let studentList = data?.students
     setList(studentList)
   }, [data])
 
+// incrementing state for the student as per the state change
   useEffect(() => {
     let present: number, absent: number, late: number
     present = absent = late = 0
@@ -53,7 +55,7 @@ export const HomeBoardPage: React.FC = () => {
       setIsRollMode(true)
     }
   }
-
+// roll as per the overlay action
   const onActiveRollAction = (action: ActiveRollAction) => {
     if (action === "exit") {
       setIsRollMode(false)
@@ -63,14 +65,18 @@ export const HomeBoardPage: React.FC = () => {
       setRole({ student_roll_states: stateList })
     }
   }
+  // Handling the search input field
   const handleSearch = (input: any) => {
     setSearchInput(input)
   }
-  const filteredSearchedStudents = (s: Person) => {
 
+  // Filtering the list of student based on the search input
+  const filteredSearchedStudents = (s: Person) => {
 
     return s.first_name.toLowerCase().indexOf(searchInput.toLowerCase()) !== -1
   }
+
+  // Sorting the list of students by ascending & descending order  by their first and last name
   const sortStudent = (a: any, b: any) => {
     if (sortType === "ascending") {
       if (isSortFirstName) {
@@ -95,7 +101,7 @@ export const HomeBoardPage: React.FC = () => {
     }
     return 0
   }
-
+// Listing the student with state and Id
   const studentStateList = (state: string, id: number) => {
     let list = stateList.filter((s) => s.Sid !== 0)
     const checkStudent = (id: number, arr: Array<{ Sid: number; state: string }>) => arr.find((element) => element.Sid === id)
@@ -108,6 +114,8 @@ export const HomeBoardPage: React.FC = () => {
     }
     setStateList(list)
   }
+
+  // Filtering the student list based on the their state
   const filterByState = (state: string) => {
     const studentList = data?.students
     if (state !== "all") {
