@@ -6,5 +6,6 @@ export interface Person {
 }
 
 export const PersonHelper = {
+  getId:(p:Person)=>p.id,
   getFullName: (p: Person) => `${p.first_name} ${p.last_name}`,
 }
